@@ -207,4 +207,5 @@ marimo/_lsp/
 __marimo__/
 
 TrabajoEvaluacion/feedback_template.md
+TrabajoEvaluacion/generate_custom_feedback_template.py
 Ediciones/
