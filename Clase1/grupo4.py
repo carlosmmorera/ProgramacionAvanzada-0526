@@ -1,24 +1,15 @@
-from Clase1.grupo2 import Product
+from grupo2 import Product
+from grupo2 import update_stock
 
 def process_orders(orders: list[dict], inventory: dict) -> None:
     for order in orders:
-        order_id = order['order_id']
         items = order['items']
-        order_instance = Order(order_id)    
 
-        for sku, quantity in items:
+        for sku, quantity in items.items():
             if sku in inventory:
                 product = inventory[sku]
-                
-                if product.current_stock >= quantity:
-                    order_instance.add_product(product, quantity)
-                    product.current_stock -= quantity
-                    product.price *= quantity
-                    total += product["price"] * quantity
-                    print(f"Order ID: {order_id} - Total: ${total:.2f} - Purchase Completed")
-                else:
-                    print(f"Error, no hay stock suficiente para el producto {product.name}")
 
+                inventory[sku] = update_stock(product, quantity)
 
 
 

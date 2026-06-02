@@ -5,7 +5,6 @@ def check_stock(product: dict, requested_units: int) -> tuple[bool, int]:
     else:
         return (False, current_stock)
 
-
 class Category:
     def __init__(self, name: str, description: str = ""):
         ...

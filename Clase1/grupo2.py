@@ -8,8 +8,9 @@ def update_stock(product: dict, sold_units: int) -> dict:
         print(f"Error: Product not found.")
         return {}
     
-    if check_stock(product["current_stock"], sold_units):
-        product["current_stock"]=product["current_stock"]-sold_units
+    enough_stock, verified_sold_units = check_stock(product, sold_units)
+    if enough_stock:
+        product["current_stock"]=product["current_stock"]-verified_sold_units
     else:
         print(f"Error: Insufficient stock for {product['name']}. Available: {product['current_stock']}, Requested: {sold_units}")
 

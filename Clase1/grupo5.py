@@ -36,5 +36,4 @@ orders = [
 process_orders(orders, inventory)
 
 # Show inventory report after processing orders:
-print("\nInventory Report:\n")
 show_inventory_report(inventory)

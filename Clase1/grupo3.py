@@ -1,4 +1,4 @@
-from Clase1.grupo2 import Product
+from grupo2 import Product
 
 
 def show_inventory_report(inventory: dict) -> None:
