@@ -1,6 +1,9 @@
 def check_stock(product: dict, requested_units: int) -> tuple[bool, int]:
-    return (True, 0)
-
+    current_stock = product["current_stock"]
+    if current_stock >= requested_units:
+        return (True, requested_units)
+    else:
+        return (False, current_stock)
 
 
 class Category:
