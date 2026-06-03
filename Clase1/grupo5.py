@@ -1,21 +1,38 @@
 from grupo3 import show_inventory_report
 from grupo4 import process_orders
 
+from typing import TypedDict, List
+
+class Category(TypedDict):
+    name: str
+    description: str
+
+class Tag(TypedDict):
+    name: str
+
+class Product(TypedDict):
+    name: str
+    sku: str
+    price: int
+    current_stock: int
+    categories: List[Category]
+    tags: List[Tag]
+
 # Categories management:
-categories = [
+categories: List[Category] = [
     {"name": "Electronics", "description": "Devices and gadgets"},
     {"name": "Office", "description": "Office supplies and equipment"}
 ]
 
 # Tags management:
-tags = [
+tags: List[Tag] = [
     {"name": "On Sale"},
     {"name": "New Arrival"},
     {"name": "Best Seller"}
 ]
 
 # Products management:
-products = [
+products: List[Product] = [
     {"name": "Laptop", "sku": "SKU123", "price": 1200, "current_stock": 10, "categories": [categories[0]], "tags": [tags[1], tags[2]]},
     {"name": "Mouse", "sku": "SKU456", "price": 25, "current_stock": 100, "categories": [categories[0]], "tags": [tags[0]]},
     {"name": "Keyboard", "sku": "SKU789", "price": 50, "current_stock": 50, "categories": [categories[1]], "tags": [tags[2]]},
