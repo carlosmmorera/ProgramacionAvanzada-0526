@@ -13,6 +13,30 @@ import requests
 BASE_URL = "https://catfact.ninja/fact"
 NUM_FACTS = 10
 
+class Cat:
+    def __init__(self, breed: str):
+        self.breed = breed
+
+class Breed:
+    def __init__(self, country: str):
+        self.country = country
+
+    def get_breeds(self) -> list:
+        cats = []
+        response = requests.get("https://catfact.ninja/breeds")
+        response.raise_for_status()
+        data = response.json()
+        breeds = data["data"]
+        for breed in breeds:
+            if breed["country"].lower() == self.country.lower():
+                cats.append(Cat(breed["breed"]))
+        return cats
+
+breed = Breed("United States")
+american_cats = breed.get_breeds()
+print(f"\nCats from {breed.country}:")
+for cat in american_cats:
+    print(f"{cat.breed}")
 
 def get_random_fact() -> dict:
     """Fetch a single random cat fact from the API."""
