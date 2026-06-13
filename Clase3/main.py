@@ -1,12 +1,12 @@
 import logging
-from fastapi import FastAPI
-from pydantic import BaseModel, Field
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, Field, EmailStr
 from typing import Optional
 from pydantic import BaseModel, field_validator, model_validator
 
 class User(BaseModel):
     username: str = Field(..., min_length=3, description="Nombre de usuario (mínimo 3 caracteres)")
-    email: str = Field(..., description="Email del usuario")
+    email: EmailStr = Field(..., description="Email del usuario")
     age: Optional[int] = Field(None, ge=0, description="Edad no negativa (opcional)")
 
     @field_validator("username")
@@ -18,7 +18,7 @@ class User(BaseModel):
 
     @model_validator(mode="after")
     def long_username_if_age_ge_50(cls, instance):
-        if instance.age >= 50:
+        if instance.age is not None and instance.age >= 50:
             if len(instance.username) < 20:
                 raise ValueError("You must provide a username longer than 20 chars")
         return instance
@@ -35,6 +35,10 @@ app = FastAPI(
     description="Una API de ejemplo.",
     version="1.0.0"
 )
+
+@app.get("/")
+def raiz_funcion():
+    raise HTTPException(status_code=429, detail="Esta es una prueba de forzar código de error")
 
 @app.get("/hello")
 def initial_greeting():
